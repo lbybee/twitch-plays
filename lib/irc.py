@@ -47,8 +47,8 @@ class Irc:
         else:
             pp('Login successful!')
 
-        sock.send('JOIN #%s\r\n' % username)
-        pp('Joined #%s' % username)
+        sock.send('JOIN #twitchplayspokemon\r\n')
+        pp('Joined #twitchplayspokemon')
 
     def ping(self, data):
         if data.startswith('PING'):
@@ -75,7 +75,7 @@ class Irc:
     def check_has_message(self, data):
         return re.match(r'^:[a-zA-Z0-9_]+\![a-zA-Z0-9_]+@[a-zA-Z0-9_]+(\.tmi\.twitch\.tv|\.testserver\.local) PRIVMSG #[a-zA-Z0-9_]+ :.+$', data)
 
-    def parse_message(self, data): 
+    def parse_message(self, data):
         return {
             'channel': re.findall(r'^:.+\![a-zA-Z0-9_]+@[a-zA-Z0-9_]+.+ PRIVMSG (.*?) :', data)[0],
             'username': re.findall(r'^:([a-zA-Z0-9_]+)\!', data)[0],
