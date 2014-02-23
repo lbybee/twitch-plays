@@ -31,7 +31,7 @@ class Bot:
                         continue
 
                     throttle_timers[button] = time.time()
-                print username, button
+                print d_time, username, button
                 if i == 10000:
                     output = open(t1.strftime("%Y%m%d%H%M%S") + ".log", "wb")
                     output.write("%s <%s> %s \n" % (d_time, username, button))
