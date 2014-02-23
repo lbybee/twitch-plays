@@ -24,7 +24,7 @@ class Bot:
             for message in new_messages:
                 button = message['message'].lower()
                 username = message['username'].lower()
-                d_time = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+                d_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 if button in self.config['throttled_buttons']:
                     if (time.time() - throttle_timers[button]
                             < self.config['throttled_buttons'][button]):
