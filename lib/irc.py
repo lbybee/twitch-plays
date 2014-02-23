@@ -76,8 +76,9 @@ class Irc:
         return re.match(r'^:[a-zA-Z0-9_]+\![a-zA-Z0-9_]+@[a-zA-Z0-9_]+(\.tmi\.twitch\.tv|\.testserver\.local) PRIVMSG #[a-zA-Z0-9_]+ :.+$', data)
 
     def parse_message(self, data):
-        return {
-            'channel': re.findall(r'^:.+\![a-zA-Z0-9_]+@[a-zA-Z0-9_]+.+ PRIVMSG (.*?) :', data)[0],
-            'username': re.findall(r'^:([a-zA-Z0-9_]+)\!', data)[0],
-            'message': re.findall(r'PRIVMSG #[a-zA-Z0-9_]+ :(.+)', data)[0].decode('utf8')
-        }
+        res = {}
+        data = data.split("!")
+        res["username"] = data[0][1:]
+        data = data[1].split(":")
+        res["message"] = data[1]
+        return res
