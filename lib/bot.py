@@ -21,6 +21,7 @@ class Bot:
             new_messages = self.irc.recv_messages(1024)
             if not new_messages:
                 continue
+            text_list = []
             for message in new_messages:
                 button = message['message'].lower()
                 username = message['username'].lower()
@@ -32,8 +33,11 @@ class Bot:
 
                     throttle_timers[button] = time.time()
                 print d_time, username, button
-                if i == 10000:
+                if i == 1000:
                     output = open(t1.strftime("%Y%m%d%H%M%S") + ".log", "wb")
-                    output.write("%s <%s> %s \n" % (d_time, username, button))
+                    for post in text_list:
+                        output.write("%s <%s> %s \n"
+                                     % (post[0], post[1], post[2]))
                     i = 0
+                    text_list = []
                     output.close()
